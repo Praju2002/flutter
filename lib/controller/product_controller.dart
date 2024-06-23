@@ -1,6 +1,7 @@
+import 'package:flutter/material.dart';
 import 'package:project/model/product.dart';
 
-class ProductController {
+class ProductController extends ChangeNotifier {
   List<Product> myProducts = [
     Product(
       name: 'Product 1',
@@ -40,7 +41,9 @@ class ProductController {
   ];
   void toggleFavorite(int index) {
     myProducts[index].isFavorite = !myProducts[index].isFavorite;
+    notifyListeners();
   }
+
   void toggleAddToCart(int index) {
     myProducts[index].isAddToCart = !myProducts[index].isAddToCart;
   }
