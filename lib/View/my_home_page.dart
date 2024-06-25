@@ -93,11 +93,11 @@ class _MyHomePageState extends State<MyHomePage> {
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: controller.myProducts.length,
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                ),
+                    crossAxisCount: 2, childAspectRatio: 7 / 10),
                 itemBuilder: (context, index) {
                   return Center(
-                    child: card(controller.myProducts[index], controller, index),
+                    child:
+                        card(controller.myProducts[index], controller, index),
                   );
                 },
               ),
