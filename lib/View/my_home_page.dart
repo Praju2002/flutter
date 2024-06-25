@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:project/View/add_product_from.dart';
 import 'package:project/controller/product_controller.dart';
 import 'package:project/model/product.dart';
 import 'package:provider/provider.dart';
@@ -18,12 +19,20 @@ class _MyHomePageState extends State<MyHomePage> {
 
     return Scaffold(
       appBar: AppBar(
-        actions: const [
-          Icon(
-            Icons.add_alert_sharp,
-            color: Colors.red,
-          )
-        ],
+        
+         actions: [
+    TextButton.icon(
+      icon: const Icon(Icons.add),
+      label: const Text('Add Product'),
+      onPressed: () {
+        // Navigate to the form screen
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const AddProductForm()),
+        );
+      },
+    ),
+  ],
         title: const Text(
           "Hamro Online Shop",
           style: TextStyle(

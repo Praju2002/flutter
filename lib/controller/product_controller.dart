@@ -47,4 +47,6 @@ class ProductController extends ChangeNotifier {
   void toggleAddToCart(int index) {
     myProducts[index].isAddToCart = !myProducts[index].isAddToCart;
   }
+
+  
 }
