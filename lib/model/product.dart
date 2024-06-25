@@ -1,4 +1,5 @@
 class Product {
+  String id;
   String? productImage;
   String? name;
   double? price;
@@ -12,5 +13,6 @@ class Product {
       this.name,
       this.price,
       this.productImage,
-      this.quantity});
+      this.quantity,
+      required this.id});
 }

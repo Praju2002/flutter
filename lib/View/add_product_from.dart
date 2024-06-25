@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:project/controller/product_controller.dart';
+import 'package:provider/provider.dart';
 
 class AddProductForm extends StatefulWidget {
   const AddProductForm({super.key});
@@ -25,8 +27,15 @@ class _AddProductFormState extends State<AddProductForm> {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Provider.of<ProductController>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(Icons.navigate_before),
+        ),
         title: const Text('Add Product'),
       ),
       body: SingleChildScrollView(
@@ -121,7 +130,12 @@ class _AddProductFormState extends State<AddProductForm> {
                     // Handle form submission
                     // You'll need to interact with ProductController here
                     // to add the new product (e.g., call addProduct method)
-                    Navigator.pop(context); // Navigate back to main screen
+                    controller.addProduct(
+                        productNameController.text,
+                        double.parse(productPriceController.text),
+                        int.parse(productQuantityController.text),
+                        productImageUrlController.text);
+                    // Navigator.pop(context); // Navigate back to main screen
                   }
                 },
                 child: const Text('Add Product'),

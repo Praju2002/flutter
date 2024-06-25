@@ -7,32 +7,28 @@ import 'package:provider/provider.dart';
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
   final String title;
+
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  // ProductController controller = ProductController();
   @override
   Widget build(BuildContext context) {
-    // final controller = Provider.of<ProductController>(context, listen: false);
-
     return Scaffold(
       appBar: AppBar(
-        
-         actions: [
-    TextButton.icon(
-      icon: const Icon(Icons.add),
-      label: const Text('Add Product'),
-      onPressed: () {
-        // Navigate to the form screen
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const AddProductForm()),
-        );
-      },
-    ),
-  ],
+        actions: [
+          TextButton.icon(
+            icon: const Icon(Icons.add),
+            label: const Text('Add Product'),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const AddProductForm()),
+              );
+            },
+          ),
+        ],
         title: const Text(
           "Hamro Online Shop",
           style: TextStyle(
@@ -47,54 +43,52 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Consumer<ProductController>(
         builder: (context, controller, child) => SingleChildScrollView(
-          child: Column(children: [
-            Container(
-              height: 200,
-              width: MediaQuery.of(context).size.width,
-              margin: const EdgeInsets.only(left: 14, right: 14, top: 14),
-              decoration: BoxDecoration(
+          child: Column(
+            children: [
+              Container(
+                height: 200,
+                width: MediaQuery.of(context).size.width,
+                margin: const EdgeInsets.all(14),
+                decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(12),
-                  color: const Color.fromARGB(255, 211, 125, 154)),
-              child: Row(
-                children: [
-                  Image.network(
-                    "https://fastly.picsum.photos/id/5/5000/3334.jpg?hmac=R_jZuyT1jbcfBlpKFxAb0Q3lof9oJ0kREaxsYV3MgCc",
-                    height: 200,
-                    width: 200,
-                    fit: BoxFit.cover,
-                  ),
-                  const SizedBox(
-                    width: 14,
-                  ),
-                  const Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Praju",
-                          style: TextStyle(
-                              fontSize: 22, fontWeight: FontWeight.bold),
-                        ),
-                        Text(
-                          'pokhara',
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w400),
-                        ),
-                        Text(
-                          '9809090909090',
-                          style: TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.w400),
-                        )
-                      ],
+                  color: const Color.fromARGB(255, 211, 125, 154),
+                ),
+                child: Row(
+                  children: [
+                    Image.network(
+                      "https://fastly.picsum.photos/id/5/5000/3334.jpg?hmac=R_jZuyT1jbcfBlpKFxAb0Q3lof9oJ0kREaxsYV3MgCc",
+                      height: 200,
+                      width: 200,
+                      fit: BoxFit.cover,
                     ),
-                  )
-                ],
+                    const SizedBox(width: 14),
+                    const Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            "Praju",
+                            style: TextStyle(
+                                fontSize: 22, fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            'pokhara',
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.w400),
+                          ),
+                          Text(
+                            '9809090909090',
+                            style: TextStyle(
+                                fontSize: 14, fontWeight: FontWeight.w400),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 14,
-            ),
-            GridView.builder(
+              const SizedBox(height: 14),
+              GridView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 itemCount: controller.myProducts.length,
@@ -103,10 +97,12 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
                 itemBuilder: (context, index) {
                   return Center(
-                      child: card(
-                          controller.myProducts[index], controller, index));
-                })
-          ]),
+                    child: card(controller.myProducts[index], controller, index),
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -118,22 +114,20 @@ class _MyHomePageState extends State<MyHomePage> {
       width: 200,
       decoration: const BoxDecoration(
         color: Color.fromARGB(255, 255, 255, 255),
-        // borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ClipRRect(
-              borderRadius: BorderRadius.circular(12),
-              child: Image.network(
-                product.productImage ?? '',
-                height: 140,
-                width: 200,
-                fit: BoxFit.fitWidth,
-              )),
-          const SizedBox(
-            height: 8,
+            borderRadius: BorderRadius.circular(12),
+            child: Image.network(
+              product.productImage ?? '',
+              height: 140,
+              width: 200,
+              fit: BoxFit.fitWidth,
+            ),
           ),
+          const SizedBox(height: 8),
           Column(
             children: [
               SizedBox(
@@ -146,9 +140,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   ],
                 ),
               ),
-              const SizedBox(
-                height: 8,
-              ),
+              const SizedBox(height: 8),
               SizedBox(
                 width: 200,
                 child: Row(
@@ -161,18 +153,17 @@ class _MyHomePageState extends State<MyHomePage> {
                     Row(
                       children: [
                         GestureDetector(
-                            onTap: () {
-                              controller.toggleFavorite(index);
-                            },
-                            child: Icon(
-                              product.isFavorite
-                                  ? Icons.favorite
-                                  : Icons.favorite_border,
-                              color: Colors.red,
-                            )),
-                        const SizedBox(
-                          width: 6,
+                          onTap: () {
+                            controller.toggleFavorite(index);
+                          },
+                          child: Icon(
+                            product.isFavorite
+                                ? Icons.favorite
+                                : Icons.favorite_border,
+                            color: Colors.red,
+                          ),
                         ),
+                        const SizedBox(width: 6),
                         GestureDetector(
                           onTap: () {
                             setState(() {
@@ -187,12 +178,12 @@ class _MyHomePageState extends State<MyHomePage> {
                           ),
                         ),
                       ],
-                    )
+                    ),
                   ],
                 ),
-              )
+              ),
             ],
-          )
+          ),
         ],
       ),
     );
