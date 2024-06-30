@@ -8,8 +8,8 @@ class Product {
   bool isAddToCart;
 
   Product(
-      {this.isAddToCart=false,
-      this.isFavorite=false,
+      {this.isAddToCart = false,
+      this.isFavorite = false,
       this.name,
       this.price,
       this.productImage,

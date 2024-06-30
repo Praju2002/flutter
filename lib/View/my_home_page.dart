@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/View/add_product_from.dart';
+import 'package:project/View/product_list.dart';
 import 'package:project/controller/product_controller.dart';
 import 'package:project/model/product.dart';
 import 'package:provider/provider.dart';
@@ -16,6 +17,17 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.green
+        ),
+      onPressed: (){
+        Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const ProductList()),
+              );
+      },
+      child: const Text("show all products",style: TextStyle(color: Colors.white),)),
       appBar: AppBar(
         actions: [
           TextButton.icon(
