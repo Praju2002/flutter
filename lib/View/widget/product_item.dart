@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:project/View/edit_product_screen.dart';
+import 'package:project/controller/product_controller.dart';
 import 'package:project/model/product.dart';
 
 class ProductItem extends StatelessWidget {
   final Product product;
-  const ProductItem({super.key, required this.product});
+  final ProductController controller ;
+  const ProductItem({super.key, required this.product ,required this.controller});
 
   @override
   Widget build(BuildContext context) {
+    
     return Container(
       height: 56,
       width: MediaQuery.of(context).size.width,
@@ -32,7 +35,9 @@ class ProductItem extends StatelessWidget {
                 color: Colors.white,
               ),
               IconButton(
-                onPressed: () {},
+                onPressed: () {
+                  controller.deleteProduct(product.id);
+                },
                 icon: const Icon(Icons.delete),
                 color: Colors.red,
               ),

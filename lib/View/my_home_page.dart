@@ -124,8 +124,9 @@ class _MyHomePageState extends State<MyHomePage> {
     return Container(
       height: 200,
       width: 200,
+      margin: const EdgeInsets.all(10),
       decoration: const BoxDecoration(
-        color: Color.fromARGB(255, 245, 248, 78),
+        color: Colors.white,
         // borderRadius: BorderRadius.circular(12),
       ),
       child: Column(

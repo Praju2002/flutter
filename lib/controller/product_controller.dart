@@ -33,8 +33,27 @@ class ProductController extends ChangeNotifier {
       isAddToCart: false,
     ),
     Product(
-      id: "3",
+      id: "4",
       name: 'Product 4',
+      price: 400,
+      quantity: 4,
+      productImage:
+          'https://fastly.picsum.photos/id/6/5000/3333.jpg?hmac=pq9FRpg2xkAQ7J9JTrBtyFcp9-qvlu8ycAi7bUHlL7I',
+      isFavorite: false,
+      isAddToCart: false,
+    ),
+    Product(
+      id: "5",
+      name: 'Product 5',
+      price: 400,
+      quantity: 4,
+      productImage:
+          'https://fastly.picsum.photos/id/6/5000/3333.jpg?hmac=pq9FRpg2xkAQ7J9JTrBtyFcp9-qvlu8ycAi7bUHlL7I',
+      isFavorite: false,
+      isAddToCart: false,
+    ),Product(
+      id: "6",
+      name: 'Product 6',
       price: 400,
       quantity: 4,
       productImage:
@@ -76,6 +95,10 @@ class ProductController extends ChangeNotifier {
         quantity: quantity);
 
     myProducts[selectedProductIndex] = editedProduct;
+    notifyListeners();
+  }
+  void deleteProduct(String id) {
+    myProducts.removeWhere((element) => element.id == id);
     notifyListeners();
   }
 }

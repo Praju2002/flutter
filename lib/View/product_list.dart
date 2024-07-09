@@ -11,11 +11,12 @@ class ProductList extends StatelessWidget {
     final controller = Provider.of<ProductController>(context, listen: true);
     return Scaffold(
       body: ListView.builder(
-        itemBuilder: (context, index) => ProductItem(
-          product: controller.myProducts[index],
+        itemBuilder: (context, index) => ProductItem (
+          product: controller.myProducts[index], controller: controller,
         ),
-        itemCount: controller.myProducts.length,
+        itemCount: controller.myProducts.length
       ),
+
     );
   }
 }
