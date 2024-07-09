@@ -1,4 +1,5 @@
 class Product {
+  String id;
   String? productImage;
   String? name;
   double? price;
@@ -7,10 +8,11 @@ class Product {
   bool isAddToCart;
 
   Product(
-      {this.isAddToCart=false,
-      this.isFavorite=false,
+      {this.isAddToCart = false,
+      this.isFavorite = false,
       this.name,
       this.price,
       this.productImage,
-      this.quantity});
+      this.quantity,
+      required this.id});
 }
