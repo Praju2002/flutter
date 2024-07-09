@@ -125,21 +125,29 @@ class _MyHomePageState extends State<MyHomePage> {
       height: 200,
       width: 200,
       decoration: const BoxDecoration(
-        color: Color.fromARGB(255, 255, 255, 255),
+        color: Color.fromARGB(255, 245, 248, 78),
+        // borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ClipRRect(
-            borderRadius: BorderRadius.circular(12),
-            child: Image.network(
-              product.productImage ?? '',
-              height: 140,
-              width: 200,
-              fit: BoxFit.fitWidth,
-            ),
+              borderRadius: BorderRadius.circular(12),
+              child: SizedBox(
+                height: 140,
+                width: 200,
+                child: FadeInImage(
+                  imageErrorBuilder: (context, e, _) =>
+                      Image.asset("assets/logo.jpg"),
+                  placeholder: const AssetImage("assets/logo.jpg"),
+                  image: NetworkImage(
+                    product.productImage ?? '',
+                  ),
+                ),
+              )),
+          const SizedBox(
+            height: 8,
           ),
-          const SizedBox(height: 8),
           Column(
             children: [
               SizedBox(
@@ -152,30 +160,35 @@ class _MyHomePageState extends State<MyHomePage> {
                   ],
                 ),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(
+                height: 8,
+              ),
               SizedBox(
                 width: 200,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      'Quantity: ${product.quantity.toString()}',
+                      'Quantity: ${(product.quantity ?? 0).toString()}',
                       style: const TextStyle(fontSize: 12),
                     ),
                     Row(
                       children: [
                         GestureDetector(
-                          onTap: () {
-                            controller.toggleFavorite(index);
-                          },
-                          child: Icon(
-                            product.isFavorite
-                                ? Icons.favorite
-                                : Icons.favorite_border,
-                            color: Colors.red,
-                          ),
+                            onTap: () {
+                              setState(() {
+                                controller.toggleFavorite(index);
+                              });
+                            },
+                            child: Icon(
+                              product.isFavorite
+                                  ? Icons.favorite
+                                  : Icons.favorite_border,
+                              color: Colors.red,
+                            )),
+                        const SizedBox(
+                          width: 6,
                         ),
-                        const SizedBox(width: 6),
                         GestureDetector(
                           onTap: () {
                             setState(() {
@@ -185,19 +198,20 @@ class _MyHomePageState extends State<MyHomePage> {
                           child: Icon(
                             product.isAddToCart
                                 ? Icons.shopping_cart
-                                : Icons.shopping_cart_outlined,
+                                : Icons.add_shopping_cart,
                             color: Colors.indigo,
                           ),
                         ),
                       ],
-                    ),
+                    )
                   ],
                 ),
-              ),
+              )
             ],
-          ),
+          )
         ],
       ),
     );
   }
 }
+

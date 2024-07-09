@@ -64,4 +64,20 @@ class ProductController extends ChangeNotifier {
     myProducts.add(newProduct);
     notifyListeners();
   }
+  void editProduct(
+      String id, String name, double price, int quantity, String imageURL) {
+    var currentProduct = myProducts.firstWhere((element) => element.id == id);
+    int selectedProductIndex = myProducts.indexOf(currentProduct);
+    Product editedProduct = Product(
+        id: id,
+        name: name,
+        price: price,
+        productImage: imageURL,
+        quantity: quantity);
+
+    myProducts[selectedProductIndex] = editedProduct;
+    notifyListeners();
+  }
 }
+
+
