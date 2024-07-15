@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:project/model/product.dart';
+import 'package:http/http.dart' as http;
 
 class ProductController extends ChangeNotifier {
+  final myServerUrl = "https://online-shop-e1128-default-rtdb.firebaseio.com/";
   List<Product> myProducts = [
     Product(
       id: "1",
@@ -51,7 +53,8 @@ class ProductController extends ChangeNotifier {
           'https://fastly.picsum.photos/id/6/5000/3333.jpg?hmac=pq9FRpg2xkAQ7J9JTrBtyFcp9-qvlu8ycAi7bUHlL7I',
       isFavorite: false,
       isAddToCart: false,
-    ),Product(
+    ),
+    Product(
       id: "6",
       name: 'Product 6',
       price: 400,
@@ -71,7 +74,9 @@ class ProductController extends ChangeNotifier {
     myProducts[index].isAddToCart = !myProducts[index].isAddToCart;
   }
 
-  void addProduct(String name, double price, int quantity, String imageUrl) {
+  void addProduct(
+      String name, double price, int quantity, String imageUrl) async {
+    final uri = Uri(scheme: "${myServerUrl}products");
     final prodId = DateTime.now().microsecondsSinceEpoch.toString();
     Product newProduct = Product(
         id: prodId,
@@ -79,10 +84,17 @@ class ProductController extends ChangeNotifier {
         name: name,
         price: price,
         quantity: quantity);
-
+    await http.post(uri, body: {
+      "id": prodId,
+      "ProductImage": imageUrl,
+      "ProductName": name,
+      "Price": price,
+      "Quantity": quantity
+    });
     myProducts.add(newProduct);
     notifyListeners();
   }
+
   void editProduct(
       String id, String name, double price, int quantity, String imageURL) {
     var currentProduct = myProducts.firstWhere((element) => element.id == id);
@@ -97,10 +109,9 @@ class ProductController extends ChangeNotifier {
     myProducts[selectedProductIndex] = editedProduct;
     notifyListeners();
   }
+
   void deleteProduct(String id) {
     myProducts.removeWhere((element) => element.id == id);
     notifyListeners();
   }
 }
-
-

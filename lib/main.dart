@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:project/View/my_home_page.dart';
 import 'package:project/controller/product_controller.dart';
+import 'package:project/firebase_options.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
