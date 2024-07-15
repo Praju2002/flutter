@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:project/model/product.dart';
 import 'package:http/http.dart' as http;
@@ -76,23 +78,30 @@ class ProductController extends ChangeNotifier {
 
   void addProduct(
       String name, double price, int quantity, String imageUrl) async {
-    final uri = Uri(scheme: "${myServerUrl}products");
-    final prodId = DateTime.now().microsecondsSinceEpoch.toString();
-    Product newProduct = Product(
-        id: prodId,
-        productImage: imageUrl,
-        name: name,
-        price: price,
-        quantity: quantity);
-    await http.post(uri, body: {
-      "id": prodId,
-      "ProductImage": imageUrl,
-      "ProductName": name,
-      "Price": price,
-      "Quantity": quantity
-    });
-    myProducts.add(newProduct);
-    notifyListeners();
+    try {
+      final prodId = DateTime.now().microsecondsSinceEpoch.toString();
+      Product newProduct = Product(
+          id: prodId,
+          productImage: imageUrl,
+          name: name,
+          price: price,
+          quantity: quantity);
+
+      final uri = '${myServerUrl}products.json';
+      http.post(Uri.parse(uri),
+          body: json.encode({
+            "id": prodId,
+            "ProductImage": imageUrl,
+            "ProductName": name,
+            "Price": price.toString(),
+            "Quantity": quantity.toString()
+          }));
+
+      myProducts.add(newProduct);
+      notifyListeners();
+    } catch (error) {
+      print(error);
+    }
   }
 
   void editProduct(
