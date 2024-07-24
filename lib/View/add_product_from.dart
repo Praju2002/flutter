@@ -125,12 +125,12 @@ class _AddProductFormState extends State<AddProductForm> {
               ),
               const SizedBox(height: 16),
               ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   if (_formKey.currentState!.validate()) {
                     // Handle form submission
                     // You'll need to interact with ProductController here
                     // to add the new product (e.g., call addProduct method)
-                    controller.addProduct(
+                    await controller.addProduct(
                         productNameController.text,
                         double.parse(productPriceController.text),
                         int.parse(productQuantityController.text),

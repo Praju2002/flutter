@@ -14,20 +14,30 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  late ProductController controller;
+  
+  @override
+  void initState() {
+    controller = Provider.of<ProductController>(context, listen: false);
+    controller.getAllProducts();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButton: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.green
-        ),
-      onPressed: (){
-        Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const ProductList()),
-              );
-      },
-      child: const Text("show all products",style: TextStyle(color: Colors.white),)),
+          style: ElevatedButton.styleFrom(backgroundColor: Colors.green),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const ProductList()),
+            );
+          },
+          child: const Text(
+            "show all products",
+            style: TextStyle(color: Colors.white),
+          )),
       appBar: AppBar(
         actions: [
           TextButton.icon(
@@ -121,8 +131,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   Widget card(Product product, ProductController controller, int index) {
-
-      return Container(
+    return Container(
       height: 200,
       width: 200,
       margin: const EdgeInsets.all(10),
@@ -216,4 +225,3 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
-
